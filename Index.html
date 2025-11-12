@@ -1,0 +1,648 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>The Vault — School Supply & Snacks</title>
+  <style>
+    :root{
+      --bg:#0f0f11; /* matte black */
+      --panel:#141416; /* dark grey */
+      --muted:#9aa0a6;
+      --accent:#7a48ff; /* purplish */
+      --accent-2:#5b3be6;
+      --glass: rgba(255,255,255,0.03);
+      --card-radius:14px;
+      --max-w:1100px;
+      font-family:Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+    html,body{height:100%;background:linear-gradient(180deg,var(--bg),#080808);margin:0;color:#e7e9eb;scroll-behavior:smooth}
+    .wrap{max-width:var(--max-w);margin:28px auto;padding:20px}
+
+/* Header */
+header{display:flex;align-items:center;gap:18px}
+.logo{display:flex;align-items:center;gap:12px}
+.vault-icon{width:56px;height:56px;background:linear-gradient(135deg,var(--panel),#1b1b1d);border-radius:12px;display:grid;place-items:center;box-shadow:0 6px 18px rgba(0,0,0,0.7), inset 0 -3px 6px rgba(0,0,0,0.4)}
+.brand{line-height:1}
+.brand h1{font-size:18px;margin:0;letter-spacing:0.6px}
+.brand p{margin:0;font-size:13px;color:var(--muted)}
+
+nav{margin-left:auto;display:flex;gap:12px;align-items:center}
+a.btn{background:var(--glass);border:1px solid rgba(255,255,255,0.03);padding:8px 12px;border-radius:10px;color:var(--muted);font-weight:600;text-decoration:none}
+a.btn.cta{background:linear-gradient(90deg,var(--accent),var(--accent-2));color:white;border:none;box-shadow:0 8px 30px rgba(123,72,255,0.12)}
+
+/* New This Week Banner */
+.new-week{margin-top:22px;background:linear-gradient(180deg,rgba(122,72,255,0.07),transparent);padding:14px;border-radius:12px;display:flex;gap:14px;align-items:center}
+.new-week .left{min-width:220px}
+.chip{display:inline-flex;gap:10px;align-items:center;background:rgba(255,255,255,0.04);padding:8px 12px;border-radius:999px;border:1px solid rgba(255,255,255,0.03)}
+.ticker{font-size:14px;color:var(--muted)}
+.carousel{display:flex;gap:12px;overflow:hidden;padding-left:6px}
+.carousel img{width:120px;height:70px;object-fit:cover;border-radius:10px;border:1px solid rgba(255,255,255,0.04)}
+.feature-img{width:100%;height:160px;object-fit:cover;border-radius:10px}
+
+/* Main grid */
+.grid{display:grid;grid-template-columns:1fr 320px;gap:18px;margin-top:18px}
+
+/* Info cards */
+.section-card{background:linear-gradient(180deg,var(--panel),#111);padding:14px;border-radius:12px;border:1px solid rgba(255,255,255,0.03);margin-bottom:12px}
+.section-card h3{margin:0 0 8px 0}
+.section-card p{margin:0;color:var(--muted)}
+
+/* Side panel */
+.side{position:sticky;top:20px;background:linear-gradient(180deg,#0f0f11, #0b0b0b);border-radius:12px;padding:16px;border:1px solid rgba(255,255,255,0.03)}
+.side h4{margin:0 0 8px 0}
+.insta{display:flex;gap:8px;flex-wrap:wrap}
+.insta a{display:inline-flex;align-items:center;gap:8px;padding:8px 10px;border-radius:10px;background:rgba(255,255,255,0.02);text-decoration:none;color:var(--muted)}
+
+footer{margin-top:28px;text-align:center;color:var(--muted);font-size:13px}
+
+/* Items list grid */
+.items-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:12px}
+.items-grid h3{margin:6px 0;color:var(--accent)}
+.items-grid ul{list-style:none;padding:0;margin:6px 0 0 0;color:var(--muted);line-height:1.6}
+
+/* Modal styles */
+#orderModal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:9999;align-items:center;justify-content:center;padding:18px}
+.order-box{width:100%;max-width:520px;background:linear-gradient(180deg,#0f0f11,#0b0b0b);border-radius:12px;padding:18px;border:1px solid rgba(255,255,255,0.04);box-shadow:0 12px 40px rgba(0,0,0,0.6);color:#e7e9eb}
+input,select{background:transparent;border-radius:8px;padding:8px;border:1px solid rgba(255,255,255,0.03);color:inherit;width:100%;box-sizing:border-box}
+
+/* responsive */
+@media (max-width:880px){
+  .grid{grid-template-columns:1fr}
+  .carousel img{width:100px;height:64px}
+  .new-week{flex-direction:column}
+}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="logo">
+        <div class="vault-icon" aria-hidden>
+          <!-- SVG vault icon -->
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="2" y="4" width="20" height="16" rx="3" stroke="white" stroke-opacity="0.12" stroke-width="1.2" fill="none"></rect>
+            <circle cx="12" cy="12" r="3.2" stroke="white" stroke-opacity="0.12" stroke-width="1.2"></circle>
+            <path d="M12 9v.01" stroke="white" stroke-width="1.2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="brand">
+          <h1>The Vault</h1>
+          <p>Fast • Trusted • School Supply</p>
+        </div>
+      </div>
+      <nav>
+        <a class="btn" href="#products">Products</a>
+        <a class="btn" href="#about">About</a>
+        <a class="btn cta" id="dmBtn" href="https://instagram.com/vinayakwow" target="_blank">DM on Insta</a>
+      </nav>
+    </header>
+
+    <!-- NEW THIS WEEK -->
+    <section class="new-week" aria-label="New this week">
+      <div style="display:flex;gap:14px;align-items:flex-start;width:100%">
+        <div style="flex:1;min-width:220px">
+          <!-- Featured image slot (replace src with your attached image path when ready) -->
+          <div style="border-radius:10px;overflow:hidden;border:1px solid rgba(255,255,255,0.03);margin-bottom:10px">
+            <img id="newFeatureImg" class="feature-img" src="https://placehold.co/1000x400/111/aaa?text=New+this+week+banner" alt="New this week feature" />
+          </div>
+
+          <div class="chip"><strong>New this week!</strong><span style="color:var(--muted);font-size:13px"> — Referral, Limited Drops & News</span></div>
+          <div style="margin-top:10px;color:var(--muted);font-size:13px"> This section will be updated to highlight special offers, referral bonuses, and announcements. Below are quick actions and notes you can access.</div>
+
+          <div style="display:flex;gap:8px;margin-top:14px;flex-wrap:wrap">
+            <div style="background:rgba(255,255,255,0.02);padding:10px;border-radius:10px;min-width:140px">
+              <strong style="display:block">Referral Bonus</strong>
+              <div style="font-size:13px;color:var(--muted);margin-top:6px">No delivery charges to anyone who brings a new buyer. Usable on 1 item each order for normal buyers and usable on upto 5 items each order for VIPs. </div>
+            </div>
+            <div style="background:rgba(255,255,255,0.02);padding:10px;border-radius:10px;min-width:140px">
+              <strong style="display:block">Limited Drops</strong>
+              <div style="font-size:13px;color:var(--muted);margin-top:6px">Only 1 Jolo Chip + 3 Imported Starbucks Vanilla Frappucino this week. DM to reserve.</div>
+            </div>
+            <div style="background:rgba(255,255,255,0.02);padding:10px;border-radius:10px;min-width:140px">
+              <strong style="display:block">VIP Perks</strong>
+              <div style="font-size:13px;color:var(--muted);margin-top:6px">VIPs get 5 items with no delivery charges on 1 referral and early access to the new stock & updates—ask to join the list and understand it's perks more.</div>
+            </div>
+          </div>
+
+          <div style="margin-top:12px;color:var(--muted);font-size:13px">Short updates will be added here. Example: 'Dairy Milk Family Pack restock tomorrow', 'Harry Potter Kinder Joy sold out', or 'Christmas Special stock soon!'.</div>
+
+        </div>
+
+        <div style="width:48%;min-width:300px;background:rgba(255,255,255,0.02);padding:12px;border-radius:10px;border:1px solid rgba(255,255,255,0.03)">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+            <strong>Gallery & Announcements</strong>
+            <span style="font-size:12px;color:var(--muted)">Swipe / Preview</span>
+          </div>
+          <div id="newCarousel" style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px">
+            <!-- JS populates gallery thumbnails -->
+          </div>
+
+          <div style="margin-top:10px;display:flex;gap:8px;flex-direction:column">
+            <div style="font-size:13px;color:var(--muted)"><strong>Today’s Highlight:</strong> DC Kinder Joy — restocked. Reserve via DM.</div>
+            <div style="font-size:13px;color:var(--muted)"><strong>Reminder:</strong> DM by 8 PM for next-day delivery. VIPs get early access.</div>
+            <div style="font-size:13px;color:var(--muted)"><strong>How to claim referral:</strong> You and your friend have to DM @vinayakwow or @_shivam.1239 and mention your name along with a special 5-letter code (e.g. WO31W). If the code matches, both of you get 0% delivery charges on an item of your choice! VIPs get 0% delivery charges on 5 items of their choice. </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <main class="grid">
+      <section style="min-height:520px">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <h2 id="products">Welcome to The Vault</h2>
+          <div style="color:var(--muted);font-size:13px;margin-left:12px">Order by DM — delivery next working day. VIPs can reserve items for upto a week. </div>
+        </div>
+
+        <!-- Hero / About -->
+        <div class="section-card" id="about">
+          <h3>What we do</h3>
+          <p>The Vault is your school’s on-demand supplier — we post what’s available, you DM to order, and we bring it the next working day straight from Vinayak Superstore. No stock, no waiting — just fast, trusted delivery for snacks, imports, and accessories.</p>
+        </div>
+
+  <!-- Info Grid -->
+        <div style="display:grid;gap:12px;margin-top:14px">
+          <div class="section-card">
+            <h3>How it works (3 simple steps)</h3>
+            <ol style="color:var(--muted);margin:8px 0 0 18px">
+              <li><strong>Pick:</strong> See items on our Insta/WhatsApp posts or DM us directly.</li>
+              <li><strong>Confirm:</strong> DM by 8 PM to reserve — we pick from the shop immediately.</li>
+              <li><strong>Collect:</strong> We deliver in-between period breaks / during recess / after school and collect payment at the same time. </li>
+            </ol>
+            <div style="margin-top:8px;color:var(--muted);font-size:13px">Pro tip: Ask to reserve if someone says “I’ll buy tomorrow” — reserved items sell faster.</div>
+          </div>
+
+          <div class="section-card">
+            <h3>This week’s focus</h3>
+            <p style="color:var(--muted);margin:0">Silk special flavours, limited imported Kinder drops, and fix bugs in the website (if any). VIPs get early access and referral bonuses. DM to join the VIP list.</p>
+          </div>
+
+          <div class="section-card">
+            <h3>Referral System (How to get ₹5 off)</h3>
+            <ol style="color:var(--muted);margin:8px 0 0 18px">
+              <li>You and your friend have to DM both <strong>@vinayakwow</strong> or <strong>@_shivam.1239</strong> and mention your name along with a special 5-letter code (RM0E5).</li>
+              <li>When that friend places their first order, both you and the friend get 0% delivery charges on an item of your choice.</li>
+              <li>More items with 0% delivery charges for VIPs — the more friends you bring, the more discounts you earn.</li>
+            </ol>
+            <div style="margin-top:8px;color:var(--muted);font-size:13px">We track referrals manually — keep your DMs/screenshots if needed.</div>
+          </div>
+
+          <div class="section-card">
+            <h3>Testimonials & Social Proof</h3>
+            <div style="display:flex;gap:8px;flex-direction:column">
+              <div style="color:var(--muted);font-size:13px">“Your all the item which I have purchased earlier from you they are very delicious 😋 and yummy." — 10/10.” — Chahat, 9D</div>
+              <div style="color:var(--muted);font-size:13px">“tbd” — Tanishqa, 7D</div>
+              <div style="color:var(--muted);font-size:13px">TBD — TBD, ?</div>
+            </div>
+          </div>
+
+          <div class="section-card">
+            <h3>FAQ</h3>
+            <div style="color:var(--muted);font-size:13px;line-height:1.4">
+              <strong>Q:</strong> How do I order?<br>
+              <strong>A:</strong> DM us the item, flavour, and your name & class or use the form in the last page of the website by 8 PM for next-day delivery.<br><br>
+              <strong>Q:</strong> What if I’m absent?<br>
+              <strong>A:</strong> We reserve items for 24 hours only—if absent, the item goes back to the pool and you have to confirm when you will be present for you to get the item.
+            </div>
+          </div>
+        </div>
+      </section>
+ <!-- ITEMS SECTION (full list) -->
+  <section id="items" style="margin:18px auto;max-width:1100px;padding:16px;border-radius:12px;border:1px solid rgba(255,255,255,0.03);background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent)">
+    <h2 style="margin:0 0 10px 0">Items</h2>
+    <p style="margin:0 0 14px 0;color:var(--muted)">Quick list — item name — <strong>selling price</strong>. DM to order (post by 8 PM for next-day delivery).</p>
+
+    <div class="items-grid" style="margin-top:8px">
+      <div>
+        <h3>Chocolates & Candies</h3>
+        <ul id="itemsList" style="padding-left:0">
+          <li>NEW Cadbury Mini Treats - ₹140</li>
+          <li>Harry Potter Kinder Joy - ₹65</li>
+          <li>DC Kinder Joy - ₹60</li>
+          <li>Normal Kinder Joy - ₹50</li>
+          <li>Imported Dairy Milk: Fruit & Nut 160g - ₹350</li>
+          <li>Imported Dairy Milk: Milk Chocolate  160g - ₹320</li>
+          <li>Imported Dairy Milk: Black Forest 160g - ₹330</li>
+          <li>Dairy Milk: Thodi Thodi Punjabi 105g - ₹120</li>
+          <li>Dairy Milk Silk 150g - ₹250</li>
+          <li>Dairy Milk Oreo Silk - ₹115</li>
+          <li>Dairy Milk Roast Almond Silk - ₹105</li>
+          <li>Dairy Milk Mousse Silk - ₹105</li>
+          <li>Dairy Milk Silk - ₹110</li>
+          <li>Dairy Milk Ganache Silk - ₹115</li>
+          <li>Dairy Milk Hazelnut Silk - ₹115</li>
+          <li>Dairy Milk Fruit & Nut Silk - ₹115</li>
+          <li>Dairy Milk Fruit & Nut - ₹130</li>
+          <li>Dairy Milk Crackle - ₹100</li>
+          <li>Dairy Milk Small - ₹5</li>
+          <li>Dairy Milk Small - ₹10</li>
+          <li>Dairy Milk Med. - ₹25</li>
+          <li>Dairy Milk Big - ₹60</li>
+          <li>Dairy Milk: Crispello - ₹10</li>
+          <li>Amul Small (35g) Dark Chocolate - ₹55</li>
+          <li>Amul (150g) Dark Chocolate - ₹210</li>
+          <li>Amul (150g) Bitter 90% Chocolate - ₹210</li>
+          <li>Amul (150g) Milk Chocolate - ₹210</li>
+          <li>Fuse - ₹25</li>
+          <li>Fuse 3D - ₹50</li>
+          <li>5 Star (8.9g) - ₹5</li>
+          <li>5 Star (18g) - ₹10</li>
+          <li>5 Star (33g) - ₹25</li>
+          <li>5 Star 3D (22g) - ₹25</li>
+          <li>Bar One (12g) - ₹5</li>
+          <li>Bar One (18g) - ₹10</li>
+          <li>Hershey's Choco Delight  - ₹15</li>
+          <li>Hershey's Choco Tubes: Almonds - ₹25</li>
+          <li>KitKat (11.9g) - ₹10</li>
+          <li>KitKat - ₹20</li>
+          <li>KitKat (38.5g) - ₹40</li>
+          <li>Nestle Classic - ₹25 - With a free Coconut Cookies pack!</li>
+          <li>Dairy Milk Lolly - ₹5</li>
+          <li>Alpenliebe Eclairs Pop - ₹5</li>
+          <li>Cadbury Chocolairs Pack - ₹10</li>
+          <li>Juzt Jelly: Fruity Bears / Orange Bears / Cola Bottles - ₹15</li>
+          <li>Hide & Seek Choco Rolls - ₹10</li>
+          <li>Hide & Seek Fills - ₹10</li>
+          <li>Alpenliebe lollipops - ₹5</li>
+          <li>Jolly Rancher Lollipops - ₹5</li>
+          <li>Dairy milk Fruit & Nut (36g) - ₹60</li>
+          <li>Dairy Milk Roast Almond (36g) - ₹60</li>
+          <li>Milky Bar - ₹10</li>
+          <li>Milky Bar Choo - ₹5</li>
+          <li>Munch small - ₹5</li>
+          <li>Munch big - ₹10</li>
+          <li>Perk - ₹5</li>
+          <li>Poppins - ₹5</li>
+          <li>Rol-a-Cola - ₹5</li>
+          <li>Coffy Bite - ₹5</li>
+          <li>Coffee Break - ₹5</li>
+          <li>Chupa Chups - ₹10</li>
+          <li>Ferrero Rocher 4N - ₹200</li>
+          <li>Nutties - ₹60</li>
+          <li>Poko Loko Sour Tape - ₹60</li>
+          <li>Nata De Coco Jelly: Strawberry, Litchi & Mango -  ₹75</li>
+          <li>Kaprika Only: Gold 8N - ₹250</li>
+          <li>Kaprika Only: 5N - ₹160</li>
+          <li>Kaprika Only: 10N - ₹320</li>
+          <li style="opacity:0.95;margin-top:6px">+ All kinds of toffees, candies, biscuits and mini treats available!</li>
+        </ul>
+      </div>
+
+      <div>
+        <h3>Gums & Mints</h3>
+        <ul>
+          <li>Imported! Trident: Spearmint / Island Berry Lime / Tropical Twist - ₹120</li>
+          <li>Center Fresh XTRA - ₹15</li>
+          <li>Mentos rainbow - ₹10</li>
+          <li>Inported! Batook: SpecialMint / Strawberry / Orange - ₹20</li>
+          <li>Mentos Mint - ₹10</li>
+          <li>Orbit Spearmint - ₹5</li>
+          <li>Happydent: White & Wave - ₹10</li>
+          <li>Doublemint - ₹10</li>
+        </ul>
+
+        <h3>Chips & Other miscellaneous stuff</h3>
+        <ul>
+          <li>Jolo chip - ₹260</li>
+          <li>Kimchi Ramen - ₹150</li>
+          <li>Shin Ramen - ₹150</li>
+          <li>Red Super Spicy Ramen - ₹150</li>
+          <li>Chiko Miko Mini Biscuits - ₹175</li>
+          <li>Cup Noodles: Veggi Manchow / Italiano / Paneer - ₹60</li>
+          <li>Geki Korean Cheese Ramen - ₹60</li>
+          <li>Geki Korean Veg Ramen - ₹60</li>
+          <li>Pringles Small Masala Tadka - ₹65</li>
+          <li>Pringles Original - ₹130</li>
+          <li>Pringles Sour Cream & Onion - ₹130</li>
+          <li>Pringles Pizza - ₹130</li>
+          <li>Imported Pringles Habaneras - ₹220</li>
+          <li>Imported Pringles Hot & Spicy - ₹215</li>
+          <li>Imported Pringles Everything Bagel - ₹215</li>
+          <li>Imported Pringles Ketchup - ₹210</li>
+          <li>Imported Pringles Ranch - ₹220</li>
+          <li>Imported Pringles Paprika - ₹215</li>
+          <li>Imported Pringles Sour Cream & Onion - ₹210</li>
+          <li>Cornitos Nacho Crisps: Tikka Masala / Tomato Mexicana / Cheese & Herbs / Sweet Chilli / Sizzlin' Jalapeno - ₹45</li>
+          <li style="opacity:0.95;margin-top:6px">+ All Lays, Doritos & Fun Flips Available!</li>
+        </ul>
+
+        <h3>Drinks</h3>
+        <ul>
+          <li>Imported! Starbucks Mocha Frappucino - ₹280</li>
+          <li>Imported! Starbucks Vanilla Frappucino - ₹280</li>
+          <li>Imported! Nescafe Caramel Macchiato - ₹150</li>
+          <li>Imported! Nescafe Caramel Latte - ₹135</li>
+          <li>Mogu Mogu - ₹80</li>
+          <li>Winkin' Cow: Chocolate Shake - ₹45</li>
+          <li>Winkin' Cow: Vanilla Shake - ₹45</li>
+          <li>Cream Bell: Vanilla Milk shake - ₹25</li>
+          <li>Cream Bell: Kesar Badam Milk shake - ₹25</li>
+          <li>Cream Bell: Coffee Milk shake - ₹35</li>
+          <li>Healthy Wheat Grass: Rose / Apple / Blueberry / Jeera - ₹60</li>
+          <li>Nonstop: Classic / Boost / Jungle - ₹60</li>
+          <li>Spinner: Citron & Classic - ₹90 (₹125 mrp)</li>
+          <li>Campa Energy: Gold Boost - ₹35</li>
+          <li>Hell: Classic / Watermelon / Cherry - ₹65</li>
+          <li>Red Bull - ₹130</li>
+          <li>Monster: Classic / Ultra - ₹130</li>
+          <li>Predator: Gold Strike - ₹65</li>
+          <li>Charged - ₹20</li>
+          <li>Sting - ₹20</li>
+          <li style="opacity:0.95;margin-top:6px">+ Other drinks and cans like Coke and Pepsi also available!</li>
+        </ul>
+
+        <h3>Pocket Perfumes & Deodorants</h3>
+        <ul>
+          <li>Park Avenue: Good Morning - ₹75</li>
+          <li>KS Spark - ₹75</li>
+          <li>Envy: Dark - ₹70</li>
+          <li>Envy: Blush - ₹70</li>
+          <li>Wild Stone: Charge / Blast / Fresh - ₹75</li>
+          <li>Denver: Pride / Imperial / Caliber - ₹70-75</li>
+          <li>Fogg: Force - ₹320</li>
+          <li>Axe: Gold Temptation - ₹340</li>
+          <li>KS Spark (Deodorant) - ₹360</li>
+          <li>Dove: Talc Mineral + Sandalwood - ₹<em>check price</em></li>
+          <li>The Man Company (Titan / Champion / Hero) - ₹290</li>
+          <li>Clensta: Milan / Rome - ₹310</li>
+          <li>Denver: Imperial (deodorant) - ₹250</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+      <aside class="side">
+        <h4>Contact & Quick Links</h4>
+        <div class="insta" style="margin-bottom:10px">
+          <a href="https://instagram.com/vinayakwow" target="_blank">@vinayakwow</a>
+          <a href="https://instagram.com/_shivam.1239" target="_blank">@_shivam.1239</a>
+        </div>
+        <div style="margin-top:8px;color:var(--muted);font-size:13px">Quick Actions</div>
+        <div style="display:flex;gap:8px;margin-top:8px">
+          <a class="btn" href="javascript:void(0)" onclick="copyDM()">Copy DM Template</a>
+          <a class="btn" href="javascript:void(0)" onclick="openOrderForm()">Place Order</a>
+        </div>
+        <hr style="border:none;height:1px;background:rgba(255,255,255,0.03);margin:12px 0;border-radius:2px">
+        <h4>About The Vault</h4>
+        <p style="color:var(--muted);font-size:13px">We deliver quality snacks & accessories to your school with zero delay. DM to order — we pick from Vinayak Superstore and bring it to you the next working day.</p>
+      </aside>
+    </main>
+
+    <footer>
+      <div>Made with care • The Vault</div>
+      <div style="margin-top:6px;color:var(--muted);font-size:12px">Pro tip: Post your order by 8 PM for next-day delivery.</div>
+      <div style="margin-top:8px;color:var(--muted);font-size:12px">The Vault — Designed by Vinayak Sharma • Built for small & large businesses. DM @vinayakwow for a website built to your needs. </div>
+    </footer>
+  </div>
+  <!-- ORDER FORM MODAL -->
+  <div id="orderModal">
+    <div class="order-box" role="dialog" aria-modal="true" aria-labelledby="orderTitle">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+        <strong id="orderTitle" style="font-size:18px">Place Order</strong>
+        <button onclick="closeOrderForm()" style="background:none;border:none;color:var(--muted);font-weight:700;cursor:pointer">✕</button>
+      </div>
+
+      <form id="vaultOrderForm">
+        <label style="display:block;font-size:13px;color:var(--muted);margin-top:8px">Your name</label>
+        <input id="ord_name" required />
+
+        <label style="display:block;font-size:13px;color:var(--muted);margin-top:10px">Class / Section</label>
+        <input id="ord_class" required />
+
+        <label style="display:block;font-size:13px;color:var(--muted);margin-top:10px">Item</label>
+        <select id="ord_item" required>
+          <option value="">— Select an item —</option>
+          <!-- auto-loaded -->
+        </select>
+
+        <label style="display:block;font-size:13px;color:var(--muted);margin-top:10px">Quantity</label>
+        <input id="ord_qty" type="number" value="1" min="1" required style="width:120px" />
+
+        <div id="otherNote" style="margin-top:10px;color:#ffcc66;display:none">
+          Want something else? Confirm it via DMs first — DM <strong>@vinayakwow</strong> or <strong>@_shivam.1239</strong>.
+        </div>
+
+        <div style="display:flex;gap:8px;margin-top:14px;align-items:center">
+          <button id="submitOrderBtn" type="submit" style="padding:10px 14px;border-radius:10px;background:linear-gradient(90deg,var(--accent),var(--accent-2));border:none;color:white;cursor:pointer">Copy order & DM</button>
+          <button type="button" onclick="autoCopyDMTemplate()" class="btn" style="background:transparent;border:1px solid rgba(255,255,255,0.04)">Copy DM Template</button>
+        </div>
+
+        <div id="orderResult" style="margin-top:12px;display:none;color:var(--muted);font-size:13px"></div>
+      </form>
+    </div>
+  </div>
+
+<script>
+/* ---------- New-this-week gallery render ---------- */
+const newThisWeek = [
+  {title:'Referral Bonus',img:'https://images.unsplash.com/photo-1581091014499-ec9f4e1f4b4a?auto=format&fit=crop&w=600&q=60'},
+  {title:'Limited Feastables Drop',img:'https://images.unsplash.com/photo-1551024709-8f23befc6f87?auto=format&fit=crop&w=600&q=60'},
+  {title:'Bracelet New Drop',img:'https://images.unsplash.com/photo-1523381219678-41f68d3a5f9a?auto=format&fit=crop&w=600&q=60'}
+];
+function renderNew(){
+  const c = document.getElementById('newCarousel');
+  c.innerHTML='';
+  newThisWeek.forEach(n=>{
+    const div = document.createElement('div');
+    div.style.height='90px';
+    div.style.overflow='hidden';
+    div.style.borderRadius='8px';
+    div.style.background='#111';
+    div.style.border='1px solid rgba(255,255,255,0.03)';
+    const img = document.createElement('img');
+    img.src = n.img;
+    img.alt = n.title;
+    img.style.width = '100%';
+    img.style.height = '100%';
+    img.style.objectFit = 'cover';
+    div.appendChild(img);
+    c.appendChild(div);
+  });
+  // If you have an attached banner image, replace the feature image src like:
+  // document.getElementById('newFeatureImg').src = '/assets/your-attached-image.jpg';
+}
+renderNew();
+/* ---------- Copy DM template ---------- */
+function copyDM(){
+  const template = Hi, I want to order: [item name] (flavour) — pickup next working day. My name: [Your Name], Class/Section: [Class].;
+  navigator.clipboard?.writeText(template).then(()=>{
+    alert('DM template copied! Paste it into the Insta DM to order.')
+  }).catch(()=>{alert('Copy your order template: '+template)})
+}
+
+/* ---------- Modal open/close & item auto-load ---------- */
+function openOrderForm(){
+  loadItemsIntoSelect();
+  document.getElementById('orderModal').style.display = 'flex';
+  setTimeout(()=> { try{ document.getElementById('ord_name').focus(); } catch(e){} },120);
+}
+function closeOrderForm(){
+  try{ document.getElementById('vaultOrderForm').reset(); }catch(e){}
+  document.getElementById('orderResult').style.display='none';
+  document.getElementById('orderModal').style.display = 'none';
+}
+
+/* Load items from #itemsList li into select */
+function loadItemsIntoSelect(){
+  const select = document.getElementById('ord_item');
+  if(!select) return;
+  select.innerHTML = '<option value="">— Select an item —</option>';
+  // gather all <li> under #itemsList and other lists inside #items section
+  const nodes = document.querySelectorAll('#itemsList li, #items li');
+  const seen = new Set();
+  nodes.forEach(li=>{
+    const txt = li.textContent.trim();
+    if(!txt) return;
+    // skip generic notes
+    if(txt.startsWith('+') || txt.toLowerCase().includes('available')) return;
+    if(seen.has(txt)) return;
+    seen.add(txt);
+    const opt = document.createElement('option');
+    opt.value = txt;
+    opt.textContent = txt;
+    select.appendChild(opt);
+  });
+  // add separators / other option at end
+  const otherOpt = document.createElement('option');
+  otherOpt.value = 'Other';
+  otherOpt.textContent = 'Want something else? Confirm via DMs first';
+  select.appendChild(otherOpt);
+}
+
+/* show/hide other note & disable submit when Other selected */
+document.addEventListener('change', function(e){
+  if(e.target && e.target.id === 'ord_item'){
+    const v = e.target.value;
+    const otherNote = document.getElementById('otherNote');
+    const submitBtn = document.getElementById('submitOrderBtn');
+    if(v === 'Other'){ if(otherNote) otherNote.style.display='block'; if(submitBtn) submitBtn.disabled=true; }
+    else { if(otherNote) otherNote.style.display='none'; if(submitBtn) submitBtn.disabled=false; }
+  }
+});
+
+/* ---------- Robust submit + copy fallback + show DM buttons ---------- */
+(function attachFormSubmit(){
+  const form = document.getElementById('vaultOrderForm');
+  if(!form) return;
+  form.addEventListener('submit', async function(e){
+    e.preventDefault();
+    const name = (document.getElementById('ord_name')||{}).value.trim();
+    const cls = (document.getElementById('ord_class')||{}).value.trim();
+    const item = (document.getElementById('ord_item')||{}).value.trim();
+    const qty = (document.getElementById('ord_qty')||{}).value.trim() || '1';
+    const resEl = document.getElementById('orderResult');
+
+    if(!name || !cls || !item){
+      alert('Please complete the form.');
+      return;
+    }
+    if(item === 'Other'){
+      alert('Please DM us first for custom orders. Then we will place it for you.');
+      return;
+    }
+
+    const msg = Order from The Vault:\nName: ${name}\nClass: ${cls}\nItem: ${item}\nQty: ${qty}\nPlease DM to: @vinayakwow or @_shivam.1239;
+
+    // Try modern clipboard API
+    let copied = false;
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      try{ await navigator.clipboard.writeText(msg); copied = true; } catch(e){ copied = false; }
+    }
+
+    // Fallback textarea copy
+    if(!copied){
+      try{
+        const ta = document.createElement('textarea');
+        ta.value = msg;
+        ta.style.position = 'fixed';
+        ta.style.left = '-9999px';
+        document.body.appendChild(ta);
+        ta.select();
+        ta.setSelectionRange(0, ta.value.length);
+        const ok = document.execCommand('copy');
+        document.body.removeChild(ta);
+        copied = !!ok;
+      } catch(e){ copied = false; }
+    }
+
+    // Show result and DM buttons
+    if(resEl){
+      resEl.style.display = 'block';
+      if(copied){
+        showDmButtons(msg);
+      } else {
+        resEl.innerHTML = '⚠ Could not copy automatically. Please copy the message below and paste it into Instagram DM:<pre style="background:rgba(255,255,255,0.02);padding:8px;border-radius:6px;margin-top:6px;color:var(--muted)">'+escapeHtml(msg)+'</pre>';
+        // Still show DM buttons so they can open profile then manually paste
+        appendDmButtonsToRes();
+      }
+    } else {
+      alert('Order ready. DM @vinayakwow or @_shivam.1239 with this message:\\n\\n' + msg);
+    }
+  });
+
+  function escapeHtml(s){
+    return (s+'').replace(/[&<>"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; });
+  }
+})();
+
+/* ---------- DM buttons UI + open profile fallback ---------- */
+function showDmButtons(orderMsg){
+  const res = document.getElementById('orderResult');
+  if(!res) return;
+  res.innerHTML = `
+    <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+      <div style="flex:1;min-width:160px">✅ Order copied to clipboard. Paste it into the DM after opening a profile.</div>
+      <button onclick="openInstagramProfile('vinayakwow')" style="padding:10px 12px;border-radius:8px;background:#405de6;border:none;color:#fff;cursor:pointer">DM @vinayakwow</button>
+      <button onclick="openInstagramProfile('_shivam.1239')" style="padding:10px 12px;border-radius:8px;background:#833ab4;border:none;color:#fff;cursor:pointer">DM @_shivam.1239</button>
+    </div>
+    <div style="margin-top:8px;color:var(--muted);font-size:12px">If nothing opens, open the profile link above, then long-press in the message box and paste.</div>
+  `;
+}
+function appendDmButtonsToRes(){
+  const res = document.getElementById('orderResult');
+  if(!res) return;
+  const btns = document.createElement('div');
+  btns.style.marginTop = '8px';
+  btns.innerHTML = `
+    <button onclick="openInstagramProfile('vinayakwow')" style="padding:8px 10px;border-radius:8px;background:#405de6;border:none;color:#fff;cursor:pointer;margin-right:6px">Open @vinayakwow</button>
+    <button onclick="openInstagramProfile('_shivam.1239')" style="padding:8px 10px;border-radius:8px;background:#833ab4;border:none;color:#fff;cursor:pointer">Open @_shivam.1239</button>
+  `;
+  res.appendChild(btns);
+}
+
+/* Try to open Instagram app, fallback to web profile */
+function openInstagramProfile(username){
+  if(!username) return;
+  const appUrl = instagram://user?username=${username};
+  const webUrl = https://instagram.com/${username};
+  // Attempt open app
+  window.location = appUrl;
+  // Fallback after timeout
+  setTimeout(function(){
+    window.open(webUrl, '_blank');
+  }, 700);
+}
+
+/* manual DM template copy button */
+function autoCopyDMTemplate(){
+  const template = 'Hi, I want to order: [item name] — Qty: [1] — My name: [Your Name], Class: [Class/Section].';
+  navigator.clipboard?.writeText(template).then(()=>{ alert('DM template copied — paste in Instagram DM to order.'); }).catch(()=>{ alert('Copy this: ' + template); });
+}
+
+/* Prevent anchor href="#" jumps: convert any such anchors to no-op by replacing with javascript:void(0) where needed */
+document.addEventListener('click', function(e){
+  const el = e.target;
+  if(el.tagName === 'A' && el.getAttribute('href') === '#'){
+    e.preventDefault();
+  }
+}, true);
+
+/* Accessibility: if user presses Escape close the modal */
+document.addEventListener('keydown', function(e){
+  if(e.key === 'Escape'){
+    const modal = document.getElementById('orderModal');
+    if(modal && modal.style.display === 'flex') closeOrderForm();
+  }
+});
+</script>
+</body>
+</html>
